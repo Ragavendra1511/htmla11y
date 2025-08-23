@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Basics and Accessibility</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: auto;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: fadeIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .slide .content {
+            width: 75%;
+            max-width: 90vw;
+            margin: auto;
+            padding-top: 2rem;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #e0e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #f0f0ff;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .content {
+            max-width: 900px;
+            text-align: left;
+        }
+
+        .content ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            list-style: none;
+            padding: 0;
+        }
+
+        .content li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .content li::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-size: 1rem;
+        }
+
+        .code-example {
+            background: rgba(0,0,0,0.8);
+            border-radius: 10px;
+            padding: 1.5rem;
+            padding-top: 3.5rem;
+            margin: 1rem 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 1rem;
+            text-align: left;
+            border-left: 4px solid #ffd700;
+            overflow-x: auto;
+            overflow-y: auto;
+            position: relative;
+            max-height: calc(1rem * 1.6 * 4 + 3.5rem);
+            line-height: 1.6;
+            white-space: pre;
+            color: #e6e6e6;
+            transition: all 0.3s ease;
+        }
+
+        .code-example.fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            max-height: 100vh;
+            z-index: 1000;
+            border-radius: 0;
+            margin: 0;
+            padding: 4rem 2rem 2rem 2rem;
+            background: rgba(0,0,0,0.95);
+            font-size: 1.2rem;
+        }
+
+        /* Syntax highlighting */
+        .code-example .tag {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .code-example .attr-name {
+            color: #4ecdc4;
+            font-style: italic;
+        }
+
+        .code-example .attr-value {
+            color: #ffe66d;
+        }
+
+        .code-example .text-content {
+            color: #a8e6cf;
+        }
+
+        .code-example .comment {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        .code-example .doctype {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .view-example-btn {
+            position: absolute;
+            top: 8px;
+            right: 120px;
+            background: #ffd700;
+            color: #333;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .view-example-btn:hover {
+            background: #ffed4e;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .fullscreen-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #4ecdc4;
+            color: #333;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .fullscreen-btn:hover {
+            background: #26d0ce;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .minimize-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .minimize-btn:hover {
+            background: #ff5252;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .presentation-container {
+                padding: 1rem;
+            }
+
+            .slide {
+                padding: 2rem 3rem;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            h3 {
+                font-size: 1.5rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .content {
+                max-width: 100%;
+            }
+
+            .content ul {
+                font-size: 1.1rem;
+                line-height: 1.6;
+            }
+
+            .content li {
+                margin-bottom: 0.8rem;
+                padding-left: 1.5rem;
+            }
+
+            .code-example {
+                font-size: 0.85rem;
+                padding: 1rem;
+                padding-top: 3rem;
+                margin: 0.8rem 0;
+                max-height: calc(0.85rem * 1.6 * 3 + 3rem);
+                overflow-x: auto;
+            }
+
+            .code-example.fullscreen {
+                padding: 3rem 1rem 1rem 1rem;
+                font-size: 1rem;
+            }
+
+            .view-example-btn {
+                right: 8px;
+                top: 8px;
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+
+            .fullscreen-btn {
+                right: 8px;
+                top: 40px;
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+
+            .minimize-btn {
+                right: 8px;
+                top: 8px;
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+
+            .navigation {
+                z-index: 50;
+            }
+
+            .nav-left {
+                left: 5px;
+            }
+
+            .nav-right {
+                right: 5px;
+            }
+
+            .nav-btn {
+                padding: 0;
+                font-size: 0;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.15);
+                backdrop-filter: blur(5px);
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-indent: -9999px;
+                overflow: hidden;
+            }
+
+            .nav-btn::before {
+                content: '';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                text-indent: 0;
+            }
+
+            .nav-left .nav-btn::before {
+                border-width: 6px 8px 6px 0;
+                border-color: transparent white transparent transparent;
+                margin-left: -2px;
+            }
+
+            .nav-right .nav-btn::before {
+                border-width: 6px 0 6px 8px;
+                border-color: transparent transparent transparent white;
+                margin-right: -2px;
+            }
+
+            .slide-counter {
+                top: 15px;
+                right: 15px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 1.5rem 2.5rem;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                margin-bottom: 0.8rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.6rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+
+            .content ul {
+                font-size: 1rem;
+            }
+
+            .content li {
+                margin-bottom: 0.6rem;
+                padding-left: 1.2rem;
+            }
+
+            .code-example {
+                font-size: 0.75rem;
+                padding: 0.8rem;
+                padding-top: 2.5rem;
+                max-height: calc(0.75rem * 1.6 * 3 + 2.5rem);
+            }
+
+            .view-example-btn,
+            .fullscreen-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.65rem;
+            }
+
+            .fullscreen-btn {
+                top: 35px;
+            }
+
+            .navigation {
+                z-index: 50;
+            }
+
+            .nav-left {
+                left: 3px;
+            }
+
+            .nav-right {
+                right: 3px;
+            }
+
+            .nav-btn {
+                padding: 0;
+                font-size: 0;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.12);
+                backdrop-filter: blur(3px);
+                width: 24px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 24px;
+                min-width: 24px;
+                text-indent: -9999px;
+                overflow: hidden;
+            }
+
+            .nav-btn::before {
+                content: '';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                text-indent: 0;
+            }
+
+            .nav-left .nav-btn::before {
+                border-width: 6px 8px 6px 0;
+                border-color: transparent white transparent transparent;
+                margin-left: -2px;
+            }
+
+            .nav-right .nav-btn::before {
+                border-width: 6px 0 6px 8px;
+                border-color: transparent transparent transparent white;
+                margin-right: -2px;
+            }
+
+            .slide-counter {
+                top: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .navigation {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .nav-left {
+            left: 30px;
+        }
+
+        .nav-right {
+            right: 30px;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700 0%, #ffed4a 100%);
+            color: #333;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .accessibility-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .intro-slide {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        }
+
+        .section-slide {
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+        }
+
+        .accessibility-slide {
+            background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">18</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active intro-slide">
+            <h1>HTML Basics & Accessibility</h1>
+            <p class="subtitle">A Comprehensive Guide to Modern Web Development</p>
+            <div class="accessibility-icon">🌐</div>
+        </div>
+
+        <!-- Slide 2: Introduction to HTML -->
+        <div class="slide">
+            <h2>1.1 Introduction to HTML</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">HTML</span> stands for HyperText Markup Language</li>
+                    <li>It's the standard markup language for creating web pages</li>
+                    <li>HTML describes the structure and content of web documents</li>
+                    <li>Uses tags to define different parts of content</li>
+                    <li>Current version is HTML5, which includes semantic elements and multimedia support</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Complete HTML5 document example --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to HTML!&lt;/h1&gt;
+    &lt;p&gt;This is my first paragraph in HTML.&lt;/p&gt;
+    &lt;!-- This is a comment --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" style="color: #ffd700;">MDN HTML Guide</a> | 
+                <a href="https://www.w3.org/TR/html52/" target="_blank" style="color: #ffd700;">W3C HTML5.2 Specification</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 3: HTML Document Structure -->
+        <div class="slide">
+            <h2>1.2 HTML Document Structure</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">&lt;!DOCTYPE html&gt;</span> - Declaration for HTML5</li>
+                    <li><span class="highlight">&lt;html&gt;</span> - Root element of the document</li>
+                    <li><span class="highlight">&lt;head&gt;</span> - Contains metadata (title, links, scripts)</li>
+                    <li><span class="highlight">&lt;body&gt;</span> - Contains visible content</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Complete document structure with common head elements --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="Page description for SEO"&gt;
+    &lt;meta name="author" content="Your Name"&gt;
+    &lt;title&gt;Document Structure Example&lt;/title&gt;
+    &lt;link rel="stylesheet" href="styles.css"&gt;
+    &lt;link rel="icon" href="favicon.ico"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Page Title&lt;/h1&gt;
+    &lt;/header&gt;
+    &lt;main&gt;
+        &lt;p&gt;Main content goes here&lt;/p&gt;
+    &lt;/main&gt;
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2025 Your Website&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head" target="_blank" style="color: #ffd700;">MDN Head Element</a> | 
+                <a href="https://htmlhead.dev/" target="_blank" style="color: #ffd700;">HTML Head Cheat Sheet</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 4: HTML Elements and Tags -->
+        <div class="slide">
+            <h2>1.3 HTML Elements and Tags</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">Tags</span> are enclosed in angle brackets &lt; &gt;</li>
+                    <li><span class="highlight">Elements</span> consist of opening tag, content, and closing tag</li>
+                    <li>Some elements are <span class="highlight">self-closing</span> (void elements)</li>
+                    <li>Tags can be <span class="highlight">nested</span> inside other tags</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Container elements (have opening and closing tags) --&gt;
+&lt;div&gt;This is a div element&lt;/div&gt;
+&lt;p&gt;This is a paragraph with &lt;strong&gt;nested bold text&lt;/strong&gt;&lt;/p&gt;
+&lt;section&gt;
+    &lt;h2&gt;Section heading&lt;/h2&gt;
+    &lt;p&gt;Nested paragraph inside section&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;!-- Void elements (self-closing, no content) --&gt;
+&lt;br&gt; &lt;!-- Line break --&gt;
+&lt;img src="image.jpg" alt="Description"&gt; &lt;!-- Image --&gt;
+&lt;hr&gt; &lt;!-- Horizontal rule --&gt;
+&lt;input type="text" name="username"&gt; &lt;!-- Input field --&gt;
+&lt;meta charset="UTF-8"&gt; &lt;!-- Metadata --&gt;
+
+&lt;!-- Proper nesting example --&gt;
+&lt;article&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Article Title&lt;/h1&gt;
+        &lt;p&gt;By &lt;em&gt;Author Name&lt;/em&gt;&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;p&gt;Article content goes here...&lt;/p&gt;
+&lt;/article&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element" target="_blank" style="color: #ffd700;">MDN HTML Elements Reference</a> | 
+                <a href="https://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element" target="_blank" style="color: #ffd700;">W3C Void Elements</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 5: Attributes in HTML -->
+        <div class="slide">
+            <h2>1.4 Attributes in HTML</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">Attributes</span> provide additional information about elements</li>
+                    <li>Written inside the opening tag as name="value" pairs</li>
+                    <li>Common attributes: id, class, src, href, alt, title</li>
+                    <li>Global attributes work with any HTML element</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Image with multiple attributes --&gt;
+&lt;img src="photo.jpg" 
+     alt="Beautiful sunset over mountains" 
+     title="Sunset Photo - Click to enlarge"
+     width="300" 
+     height="200"
+     loading="lazy"&gt;
+
+&lt;!-- Links with various attributes --&gt;
+&lt;a href="https://example.com" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   title="Visit Example.com (opens in new tab)"&gt;External Link&lt;/a&gt;
+
+&lt;a href="#section1" 
+   class="internal-link"
+   aria-describedby="link-help"&gt;Go to Section 1&lt;/a&gt;
+
+&lt;!-- Form elements with attributes --&gt;
+&lt;input type="email" 
+       id="user-email" 
+       name="email" 
+       placeholder="Enter your email"
+       required 
+       aria-label="Email address"&gt;
+
+&lt;!-- Container with multiple attributes --&gt;
+&lt;div id="main-content" 
+     class="container highlight responsive"
+     data-section="home"
+     role="main"
+     tabindex="0"&gt;
+    Content with multiple attributes
+&lt;/div&gt;
+
+&lt;!-- Boolean attributes (no value needed) --&gt;
+&lt;input type="checkbox" checked disabled&gt;
+&lt;script src="app.js" async defer&gt;&lt;/script&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes" target="_blank" style="color: #ffd700;">MDN HTML Attributes</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes" target="_blank" style="color: #ffd700;">MDN Global Attributes</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 6: Headings and Paragraphs -->
+        <div class="slide">
+            <h2>1.5 Headings and Paragraphs</h2>
+            <div class="content">
+                <div class="two-column">
+                    <div>
+                        <h3>Headings (h1-h6)</h3>
+                        <ul>
+                            <li>Six levels of headings</li>
+                            <li>h1 is the largest, h6 is the smallest</li>
+                            <li>Important for SEO and accessibility</li>
+                            <li>Use hierarchically</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Paragraphs</h3>
+                        <ul>
+                            <li>Use &lt;p&gt; for text blocks</li>
+                            <li>Browsers add spacing automatically</li>
+                            <li>Can contain inline elements</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="code-example">
+&lt;!-- Proper heading hierarchy --&gt;
+&lt;h1&gt;Website Main Title&lt;/h1&gt;
+&lt;h2&gt;Chapter: Getting Started&lt;/h2&gt;
+&lt;h3&gt;Section: Installation&lt;/h3&gt;
+&lt;h4&gt;Subsection: Prerequisites&lt;/h4&gt;
+&lt;h5&gt;Minor Heading&lt;/h5&gt;
+&lt;h6&gt;Smallest Heading&lt;/h6&gt;
+
+&lt;!-- Paragraphs with inline elements --&gt;
+&lt;p&gt;This is a paragraph with &lt;strong&gt;bold text&lt;/strong&gt; and &lt;em&gt;italic text&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;You can also use &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italic&lt;/i&gt;, &lt;u&gt;underlined&lt;/u&gt;, 
+   &lt;mark&gt;highlighted&lt;/mark&gt;, &lt;small&gt;small text&lt;/small&gt;, and 
+   &lt;code&gt;inline code&lt;/code&gt; within paragraphs.&lt;/p&gt;
+
+&lt;!-- Paragraph with line breaks --&gt;
+&lt;p&gt;First line of text&lt;br&gt;
+   Second line after break&lt;br&gt;
+   Third line&lt;/p&gt;
+
+&lt;!-- Preformatted text --&gt;
+&lt;pre&gt;
+   This text preserves
+      spaces and line breaks
+         exactly as written
+&lt;/pre&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements" target="_blank" style="color: #ffd700;">MDN Heading Elements</a> | 
+                <a href="https://webaim.org/techniques/semanticstructure/" target="_blank" style="color: #ffd700;">WebAIM Semantic Structure</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Lists -->
+        <div class="slide">
+            <h2>1.6 Lists: Ordered and Unordered</h2>
+            <div class="content">
+                <div class="two-column">
+                    <div>
+                        <h3>Unordered Lists (&lt;ul&gt;)</h3>
+                        <ul>
+                            <li>Bullet points</li>
+                            <li>No specific order</li>
+                            <li>Use for related items</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Ordered Lists (&lt;ol&gt;)</h3>
+                        <ul>
+                            <li>Numbered items</li>
+                            <li>Sequential order matters</li>
+                            <li>Use for steps or rankings</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="code-example">
+&lt;!-- Basic unordered list --&gt;
+&lt;ul&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+    &lt;li&gt;Third item&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Basic ordered list --&gt;
+&lt;ol&gt;
+    &lt;li&gt;Step one&lt;/li&gt;
+    &lt;li&gt;Step two&lt;/li&gt;
+    &lt;li&gt;Step three&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Nested lists --&gt;
+&lt;ul&gt;
+    &lt;li&gt;Main topic
+        &lt;ul&gt;
+            &lt;li&gt;Subtopic 1&lt;/li&gt;
+            &lt;li&gt;Subtopic 2&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Another main topic&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Ordered list with custom start --&gt;
+&lt;ol start="5"&gt;
+    &lt;li&gt;Fifth item&lt;/li&gt;
+    &lt;li&gt;Sixth item&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Description list --&gt;
+&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;!-- List with different types --&gt;
+&lt;ol type="A"&gt;
+    &lt;li&gt;First (A)&lt;/li&gt;
+    &lt;li&gt;Second (B)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ol type="i"&gt;
+    &lt;li&gt;First (i)&lt;/li&gt;
+    &lt;li&gt;Second (ii)&lt;/li&gt;
+&lt;/ol&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul" target="_blank" style="color: #ffd700;">MDN Unordered Lists</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol" target="_blank" style="color: #ffd700;">MDN Ordered Lists</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dl" target="_blank" style="color: #ffd700;">MDN Description Lists</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Links and Anchor Tags -->
+        <div class="slide">
+            <h2>1.7 Links and Anchor Tags</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">&lt;a&gt;</span> element creates hyperlinks</li>
+                    <li><span class="highlight">href</span> attribute specifies the destination</li>
+                    <li>Links can point to other pages, sections, or files</li>
+                    <li>Use descriptive link text for accessibility</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- External links --&gt;
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;
+    Visit Example.com (opens in new tab)
+&lt;/a&gt;
+
+&lt;!-- Internal page links --&gt;
+&lt;a href="about.html"&gt;About Us&lt;/a&gt;
+&lt;a href="../contact/index.html"&gt;Contact Page&lt;/a&gt;
+
+&lt;!-- Email and phone links --&gt;
+&lt;a href="mailto:contact@example.com?subject=Hello&amp;body=Hi there!"&gt;
+    Send Email with Subject
+&lt;/a&gt;
+&lt;a href="tel:+1234567890"&gt;Call Us: (123) 456-7890&lt;/a&gt;
+
+&lt;!-- Section/anchor links --&gt;
+&lt;a href="#section1"&gt;Go to Section 1&lt;/a&gt;
+&lt;a href="#top"&gt;Back to Top&lt;/a&gt;
+
+&lt;!-- File download links --&gt;
+&lt;a href="document.pdf" download="my-document.pdf"&gt;
+    Download PDF
+&lt;/a&gt;
+&lt;a href="image.jpg" download&gt;Download Image&lt;/a&gt;
+
+&lt;!-- Links with accessibility attributes --&gt;
+&lt;a href="https://example.com" 
+   aria-label="Visit Example website (opens in new window)"
+   title="External link to Example.com"&gt;
+    Example
+&lt;/a&gt;
+
+&lt;!-- Link that looks like a button --&gt;
+&lt;a href="signup.html" class="button-link" role="button"&gt;
+    Sign Up Now
+&lt;/a&gt;
+
+&lt;!-- Creating anchor targets --&gt;
+&lt;h2 id="section1"&gt;Section 1 Title&lt;/h2&gt;
+&lt;p&gt;This section can be linked to with #section1&lt;/p&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank" style="color: #ffd700;">MDN Anchor Element</a> | 
+                <a href="https://webaim.org/techniques/hypertext/" target="_blank" style="color: #ffd700;">WebAIM Link Accessibility</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Images and Image Maps -->
+        <div class="slide">
+            <h2>1.8 Images and Image Maps</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">&lt;img&gt;</span> element embeds images</li>
+                    <li><span class="highlight">src</span> attribute specifies image source</li>
+                    <li><span class="highlight">alt</span> attribute provides alternative text</li>
+                    <li>Image maps create clickable areas within images</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Basic responsive image --&gt;
+&lt;img src="logo.png" 
+     alt="Company Logo - Acme Corporation" 
+     width="200" 
+     height="100"
+     loading="lazy"&gt;
+
+&lt;!-- Responsive image with srcset --&gt;
+&lt;img src="photo-800.jpg"
+     srcset="photo-400.jpg 400w, 
+             photo-800.jpg 800w, 
+             photo-1200.jpg 1200w"
+     sizes="(max-width: 600px) 400px, 
+            (max-width: 1000px) 800px, 
+            1200px"
+     alt="Beautiful landscape with mountains and lake"
+     loading="lazy"&gt;
+
+&lt;!-- Picture element for art direction --&gt;
+&lt;picture&gt;
+    &lt;source media="(max-width: 600px)" srcset="mobile-banner.jpg"&gt;
+    &lt;source media="(max-width: 1200px)" srcset="tablet-banner.jpg"&gt;
+    &lt;img src="desktop-banner.jpg" alt="Website banner image"&gt;
+&lt;/picture&gt;
+
+&lt;!-- Figure with caption --&gt;
+&lt;figure&gt;
+    &lt;img src="chart.png" alt="Sales data showing 25% increase"&gt;
+    &lt;figcaption&gt;Q4 2024 Sales Performance Chart&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;!-- Image with map (clickable areas) --&gt;
+&lt;img src="worldmap.jpg" alt="Interactive World Map" usemap="#worldmap"&gt;
+&lt;map name="worldmap"&gt;
+    &lt;area shape="rect" 
+          coords="0,0,100,100" 
+          href="asia.html" 
+          alt="Asia region"
+          title="Click to view Asia"&gt;
+    &lt;area shape="circle" 
+          coords="200,200,50" 
+          href="europe.html" 
+          alt="Europe region"
+          title="Click to view Europe"&gt;
+    &lt;area shape="poly" 
+          coords="300,10,400,50,350,100,250,80" 
+          href="americas.html" 
+          alt="Americas region"
+          title="Click to view Americas"&gt;
+&lt;/map&gt;
+
+&lt;!-- SVG as image --&gt;
+&lt;img src="icon.svg" alt="Settings icon" width="24" height="24"&gt;
+
+&lt;!-- Base64 encoded image --&gt;
+&lt;img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQi..." 
+     alt="Inline SVG icon"&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img" target="_blank" style="color: #ffd700;">MDN Image Element</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture" target="_blank" style="color: #ffd700;">MDN Picture Element</a> | 
+                <a href="https://web.dev/responsive-images/" target="_blank" style="color: #ffd700;">Web.dev Responsive Images</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Tables -->
+        <div class="slide">
+            <h2>1.9 Tables and Table Elements</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">&lt;table&gt;</span> creates data tables</li>
+                    <li><span class="highlight">&lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt;</span> structure table sections</li>
+                    <li><span class="highlight">&lt;tr&gt;</span> defines table rows</li>
+                    <li><span class="highlight">&lt;th&gt;</span> for headers, <span class="highlight">&lt;td&gt;</span> for data cells</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Complete table with all sections --&gt;
+&lt;table&gt;
+    &lt;caption&gt;Employee Information Table&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Name&lt;/th&gt;
+            &lt;th scope="col"&gt;Age&lt;/th&gt;
+            &lt;th scope="col"&gt;Department&lt;/th&gt;
+            &lt;th scope="col"&gt;Salary&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;John Smith&lt;/td&gt;
+            &lt;td&gt;30&lt;/td&gt;
+            &lt;td&gt;Engineering&lt;/td&gt;
+            &lt;td&gt;$75,000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Jane Doe&lt;/td&gt;
+            &lt;td&gt;28&lt;/td&gt;
+            &lt;td&gt;Marketing&lt;/td&gt;
+            &lt;td&gt;$65,000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Bob Johnson&lt;/td&gt;
+            &lt;td&gt;35&lt;/td&gt;
+            &lt;td&gt;Sales&lt;/td&gt;
+            &lt;td&gt;$70,000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="3"&gt;Total Employees&lt;/td&gt;
+            &lt;td&gt;3&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+
+&lt;!-- Table with merged cells --&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th rowspan="2"&gt;Product&lt;/th&gt;
+        &lt;th colspan="2"&gt;Sales&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Q1&lt;/th&gt;
+        &lt;th&gt;Q2&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Widget A&lt;/td&gt;
+        &lt;td&gt;100&lt;/td&gt;
+        &lt;td&gt;150&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Widget B&lt;/td&gt;
+        &lt;td&gt;80&lt;/td&gt;
+        &lt;td&gt;120&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;!-- Accessible table with headers --&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th id="name"&gt;Student Name&lt;/th&gt;
+        &lt;th id="math"&gt;Math Score&lt;/th&gt;
+        &lt;th id="english"&gt;English Score&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td headers="name"&gt;Alice&lt;/td&gt;
+        &lt;td headers="math"&gt;95&lt;/td&gt;
+        &lt;td headers="english"&gt;88&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/table" target="_blank" style="color: #ffd700;">MDN Table Element</a> | 
+                <a href="https://webaim.org/techniques/tables/" target="_blank" style="color: #ffd700;">WebAIM Table Accessibility</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 11: Forms -->
+        <div class="slide">
+            <h2>1.10 Forms and Input Elements</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">&lt;form&gt;</span> element contains form controls</li>
+                    <li>Various input types: text, email, password, number, date</li>
+                    <li><span class="highlight">&lt;label&gt;</span> elements improve accessibility</li>
+                    <li>Form validation attributes ensure data quality</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Complete form with various input types --&gt;
+&lt;form action="/submit" method="POST" novalidate&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;Personal Information&lt;/legend&gt;
+        
+        &lt;label for="name"&gt;Full Name:&lt;/label&gt;
+        &lt;input type="text" id="name" name="name" 
+               placeholder="Enter your full name"
+               required minlength="2" maxlength="50"&gt;
+        
+        &lt;label for="email"&gt;Email Address:&lt;/label&gt;
+        &lt;input type="email" id="email" name="email" 
+               placeholder="user@example.com"
+               required aria-describedby="email-help"&gt;
+        &lt;small id="email-help"&gt;We'll never share your email&lt;/small&gt;
+        
+        &lt;label for="phone"&gt;Phone Number:&lt;/label&gt;
+        &lt;input type="tel" id="phone" name="phone" 
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+               placeholder="123-456-7890"&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;fieldset&gt;
+        &lt;legend&gt;Preferences&lt;/legend&gt;
+        
+        &lt;label for="age"&gt;Age:&lt;/label&gt;
+        &lt;input type="number" id="age" name="age" 
+               min="18" max="120" step="1"&gt;
+        
+        &lt;label for="birthdate"&gt;Birth Date:&lt;/label&gt;
+        &lt;input type="date" id="birthdate" name="birthdate"&gt;
+        
+        &lt;label for="website"&gt;Website:&lt;/label&gt;
+        &lt;input type="url" id="website" name="website" 
+               placeholder="https://example.com"&gt;
+        
+        &lt;label for="password"&gt;Password:&lt;/label&gt;
+        &lt;input type="password" id="password" name="password" 
+               minlength="8" required&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;fieldset&gt;
+        &lt;legend&gt;Additional Information&lt;/legend&gt;
+        
+        &lt;label for="country"&gt;Country:&lt;/label&gt;
+        &lt;select id="country" name="country" required&gt;
+            &lt;option value=""&gt;Select a country&lt;/option&gt;
+            &lt;option value="us"&gt;United States&lt;/option&gt;
+            &lt;option value="ca"&gt;Canada&lt;/option&gt;
+            &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+        &lt;/select&gt;
+        
+        &lt;label for="bio"&gt;Biography:&lt;/label&gt;
+        &lt;textarea id="bio" name="bio" rows="4" cols="50" 
+                  placeholder="Tell us about yourself..."&gt;&lt;/textarea&gt;
+        
+        &lt;fieldset&gt;
+            &lt;legend&gt;Newsletter Subscription&lt;/legend&gt;
+            &lt;input type="radio" id="daily" name="newsletter" value="daily"&gt;
+            &lt;label for="daily"&gt;Daily&lt;/label&gt;
+            
+            &lt;input type="radio" id="weekly" name="newsletter" value="weekly" checked&gt;
+            &lt;label for="weekly"&gt;Weekly&lt;/label&gt;
+            
+            &lt;input type="radio" id="monthly" name="newsletter" value="monthly"&gt;
+            &lt;label for="monthly"&gt;Monthly&lt;/label&gt;
+        &lt;/fieldset&gt;
+        
+        &lt;input type="checkbox" id="terms" name="terms" required&gt;
+        &lt;label for="terms"&gt;I agree to the terms and conditions&lt;/label&gt;
+        
+        &lt;input type="checkbox" id="marketing" name="marketing"&gt;
+        &lt;label for="marketing"&gt;Send me marketing emails&lt;/label&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;input type="hidden" name="form_id" value="contact_form"&gt;
+    
+    &lt;button type="submit"&gt;Submit Form&lt;/button&gt;
+    &lt;button type="reset"&gt;Reset Form&lt;/button&gt;
+&lt;/form&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form" target="_blank" style="color: #ffd700;">MDN Form Element</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank" style="color: #ffd700;">MDN Input Types</a> | 
+                <a href="https://webaim.org/techniques/forms/" target="_blank" style="color: #ffd700;">WebAIM Form Accessibility</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 12: Semantic HTML -->
+        <div class="slide">
+            <h2>1.11 Semantic HTML</h2>
+            <div class="content">
+                <ul>
+                    <li>Semantic elements clearly describe their meaning</li>
+                    <li>Improves accessibility and SEO</li>
+                    <li>Makes code more readable and maintainable</li>
+                    <li>Examples: <span class="highlight">&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;article&gt;, &lt;footer&gt;</span></li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Complete semantic HTML page structure --&gt;
+&lt;header role="banner"&gt;
+    &lt;h1&gt;Website Title&lt;/h1&gt;
+    &lt;nav role="navigation" aria-label="Main navigation"&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="/" aria-current="page"&gt;Home&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main role="main"&gt;
+    &lt;section&gt;
+        &lt;h2&gt;Featured Content&lt;/h2&gt;
+        &lt;article&gt;
+            &lt;header&gt;
+                &lt;h3&gt;Article Title&lt;/h3&gt;
+                &lt;p&gt;Published on &lt;time datetime="2025-01-15"&gt;January 15, 2025&lt;/time&gt; 
+                   by &lt;address&gt;John Doe&lt;/address&gt;&lt;/p&gt;
+            &lt;/header&gt;
+            &lt;p&gt;Article content goes here...&lt;/p&gt;
+            &lt;aside&gt;
+                &lt;h4&gt;Related Links&lt;/h4&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;Related Article 1&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="#"&gt;Related Article 2&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/aside&gt;
+            &lt;footer&gt;
+                &lt;p&gt;Tags: &lt;mark&gt;HTML&lt;/mark&gt;, &lt;mark&gt;Semantic&lt;/mark&gt;&lt;/p&gt;
+            &lt;/footer&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+    
+    &lt;section&gt;
+        &lt;h2&gt;Additional Information&lt;/h2&gt;
+        &lt;details&gt;
+            &lt;summary&gt;Click to expand details&lt;/summary&gt;
+            &lt;p&gt;This content is hidden by default and can be toggled.&lt;/p&gt;
+        &lt;/details&gt;
+        
+        &lt;figure&gt;
+            &lt;img src="diagram.png" alt="Process flow diagram"&gt;
+            &lt;figcaption&gt;Figure 1: Our development process&lt;/figcaption&gt;
+        &lt;/figure&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;aside role="complementary"&gt;
+    &lt;h2&gt;Sidebar Content&lt;/h2&gt;
+    &lt;section&gt;
+        &lt;h3&gt;Recent Posts&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Post 1&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Post 2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/section&gt;
+&lt;/aside&gt;
+
+&lt;footer role="contentinfo"&gt;
+    &lt;section&gt;
+        &lt;h3&gt;Contact Information&lt;/h3&gt;
+        &lt;address&gt;
+            &lt;p&gt;123 Main Street&lt;br&gt;
+               City, State 12345&lt;br&gt;
+               &lt;a href="tel:+1234567890"&gt;(123) 456-7890&lt;/a&gt;&lt;/p&gt;
+        &lt;/address&gt;
+    &lt;/section&gt;
+    &lt;p&gt;&lt;small&gt;&copy; 2025 Company Name. All rights reserved.&lt;/small&gt;&lt;/p&gt;
+&lt;/footer&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Glossary/Semantics" target="_blank" style="color: #ffd700;">MDN HTML Semantics</a> | 
+                <a href="https://web.dev/semantic-html/" target="_blank" style="color: #ffd700;">Web.dev Semantic HTML</a> | 
+                <a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html" target="_blank" style="color: #ffd700;">WCAG Info and Relationships</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 13: HTML5 New Features -->
+        <div class="slide">
+            <h2>1.12 HTML5 New Features</h2>
+            <div class="content">
+                <ul>
+                    <li>New semantic elements for better structure</li>
+                    <li>Native audio and video support</li>
+                    <li>Canvas for graphics and animations</li>
+                    <li>Local storage capabilities</li>
+                    <li>New form input types and validation</li>
+                    <li>Geolocation API</li>
+                    <li>Web Workers for background processing</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- HTML5 semantic elements --&gt;
+&lt;section&gt;
+    &lt;header&gt;
+        &lt;h2&gt;New HTML5 Elements&lt;/h2&gt;
+    &lt;/header&gt;
+    
+    &lt;article&gt;
+        &lt;h3&gt;Article with time element&lt;/h3&gt;
+        &lt;p&gt;Published &lt;time datetime="2025-01-15T10:30:00Z"&gt;January 15, 2025&lt;/time&gt;&lt;/p&gt;
+    &lt;/article&gt;
+    
+    &lt;aside&gt;
+        &lt;h4&gt;Sidebar Content&lt;/h4&gt;
+        &lt;p&gt;Related information goes here&lt;/p&gt;
+    &lt;/aside&gt;
+    
+    &lt;figure&gt;
+        &lt;img src="chart.png" alt="Sales performance chart showing 25% growth"&gt;
+        &lt;figcaption&gt;Figure 1: 2024 Sales Performance Data&lt;/figcaption&gt;
+    &lt;/figure&gt;
+&lt;/section&gt;
+
+&lt;!-- HTML5 form enhancements --&gt;
+&lt;form&gt;
+    &lt;input type="email" placeholder="Enter email" required&gt;
+    &lt;input type="url" placeholder="Website URL"&gt;
+    &lt;input type="date" min="2025-01-01" max="2025-12-31"&gt;
+    &lt;input type="range" min="0" max="100" value="50"&gt;
+    &lt;input type="color" value="#ff0000"&gt;
+    &lt;input type="search" placeholder="Search..."&gt;
+&lt;/form&gt;
+
+&lt;!-- HTML5 interactive elements --&gt;
+&lt;details open&gt;
+    &lt;summary&gt;Click to toggle content&lt;/summary&gt;
+    &lt;p&gt;This content can be shown or hidden&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+&lt;meter value="6" min="0" max="10"&gt;6 out of 10&lt;/meter&gt;
+
+&lt;!-- HTML5 text-level semantics --&gt;
+&lt;p&gt;The &lt;mark&gt;highlighted text&lt;/mark&gt; stands out.&lt;/p&gt;
+&lt;p&gt;Chemical formula: H&lt;sub&gt;2&lt;/sub&gt;O&lt;/p&gt;
+&lt;p&gt;Mathematical expression: E=mc&lt;sup&gt;2&lt;/sup&gt;&lt;/p&gt;
+&lt;p&gt;Use &lt;kbd&gt;Ctrl+C&lt;/kbd&gt; to copy.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;console.log()&lt;/code&gt; function outputs to console.&lt;/p&gt;
+&lt;p&gt;Server returned &lt;samp&gt;404 Not Found&lt;/samp&gt;&lt;/p&gt;
+&lt;p&gt;Enter your &lt;var&gt;username&lt;/var&gt; below.&lt;/p&gt;
+
+&lt;!-- HTML5 Ruby annotations (for East Asian typography) --&gt;
+&lt;ruby&gt;
+    漢 &lt;rt&gt;kan&lt;/rt&gt;
+    字 &lt;rt&gt;ji&lt;/rt&gt;
+&lt;/ruby&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/HTML5" target="_blank" style="color: #ffd700;">MDN HTML5</a> | 
+                <a href="https://html.spec.whatwg.org/" target="_blank" style="color: #ffd700;">HTML Living Standard</a> | 
+                <a href="https://caniuse.com/" target="_blank" style="color: #ffd700;">Can I Use (Browser Support)</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 14: Multimedia -->
+        <div class="slide">
+            <h2>1.13 Multimedia: Audio and Video</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">&lt;audio&gt;</span> and <span class="highlight">&lt;video&gt;</span> elements for media</li>
+                    <li>Built-in player controls</li>
+                    <li>Multiple source formats for compatibility</li>
+                    <li>Accessibility features like captions and transcripts</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Video with full accessibility features --&gt;
+&lt;video controls width="400" height="300" 
+       poster="video-thumbnail.jpg"
+       preload="metadata"
+       aria-label="Product demonstration video"&gt;
+    &lt;source src="movie.mp4" type="video/mp4"&gt;
+    &lt;source src="movie.webm" type="video/webm"&gt;
+    &lt;source src="movie.ogv" type="video/ogg"&gt;
+    
+    &lt;!-- Accessibility tracks --&gt;
+    &lt;track kind="captions" src="captions-en.vtt" srclang="en" label="English Captions" default&gt;
+    &lt;track kind="captions" src="captions-es.vtt" srclang="es" label="Spanish Captions"&gt;
+    &lt;track kind="subtitles" src="subtitles-en.vtt" srclang="en" label="English Subtitles"&gt;
+    &lt;track kind="descriptions" src="descriptions.vtt" srclang="en" label="Audio Descriptions"&gt;
+    &lt;track kind="chapters" src="chapters.vtt" srclang="en" label="Chapters"&gt;
+    
+    &lt;p&gt;Your browser doesn't support HTML5 video. 
+       &lt;a href="movie.mp4"&gt;Download the video&lt;/a&gt; instead.&lt;/p&gt;
+&lt;/video&gt;
+
+&lt;!-- Audio with multiple formats --&gt;
+&lt;audio controls preload="none" 
+       aria-label="Background music track"&gt;
+    &lt;source src="song.mp3" type="audio/mpeg"&gt;
+    &lt;source src="song.ogg" type="audio/ogg"&gt;
+    &lt;source src="song.wav" type="audio/wav"&gt;
+    &lt;p&gt;Your browser doesn't support HTML5 audio. 
+       &lt;a href="song.mp3"&gt;Download the audio&lt;/a&gt; instead.&lt;/p&gt;
+&lt;/audio&gt;
+
+&lt;!-- Embedded YouTube video (iframe) --&gt;
+&lt;iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen
+        loading="lazy"&gt;
+&lt;/iframe&gt;
+
+&lt;!-- Audio with custom controls --&gt;
+&lt;figure&gt;
+    &lt;figcaption&gt;Listen to our podcast:&lt;/figcaption&gt;
+    &lt;audio controls src="podcast-episode-1.mp3"&gt;
+        &lt;a href="podcast-episode-1.mp3"&gt;Download audio&lt;/a&gt;
+    &lt;/audio&gt;
+&lt;/figure&gt;
+
+&lt;!-- Video with autoplay (muted for accessibility) --&gt;
+&lt;video autoplay muted loop 
+       width="300" height="200"
+       aria-label="Background animation"&gt;
+    &lt;source src="background-animation.mp4" type="video/mp4"&gt;
+    &lt;source src="background-animation.webm" type="video/webm"&gt;
+&lt;/video&gt;
+
+&lt;!-- Media with picture-in-picture support --&gt;
+&lt;video controls 
+       width="400" 
+       disablepictureinpicture="false"
+       controlslist="nodownload"&gt;
+    &lt;source src="presentation.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video" target="_blank" style="color: #ffd700;">MDN Video Element</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio" target="_blank" style="color: #ffd700;">MDN Audio Element</a> | 
+                <a href="https://web.dev/media-accessibility/" target="_blank" style="color: #ffd700;">Web.dev Media Accessibility</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Block vs Inline Elements -->
+        <div class="slide">
+            <h2>1.14 Block vs Inline Elements</h2>
+            <div class="content">
+                <div class="two-column">
+                    <div>
+                        <h3>Block Elements</h3>
+                        <ul>
+                            <li>Start on new line</li>
+                            <li>Take full width available</li>
+                            <li>Can contain other block and inline elements</li>
+                            <li>Examples: div, p, h1-h6, section</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Inline Elements</h3>
+                        <ul>
+                            <li>Flow within text content</li>
+                            <li>Only take necessary width</li>
+                            <li>Can only contain other inline elements</li>
+                            <li>Examples: span, a, strong, em</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="code-example">
+&lt;!-- Block Elements Examples --&gt;
+&lt;div style="background: #e3f2fd; padding: 10px; margin: 5px 0;"&gt;
+    This is a block element (div) - takes full width
+&lt;/div&gt;
+
+&lt;p style="background: #f3e5f5; padding: 10px; margin: 5px 0;"&gt;
+    This is a paragraph block element with 
+    &lt;span style="background: #fff3e0; padding: 2px;"&gt;inline span&lt;/span&gt; and 
+    &lt;strong style="background: #e8f5e8; padding: 2px;"&gt;strong inline&lt;/strong&gt; elements.
+&lt;/p&gt;
+
+&lt;h3 style="background: #fce4ec; padding: 10px; margin: 5px 0;"&gt;
+    Heading is also a block element
+&lt;/h3&gt;
+
+&lt;section style="background: #e0f2f1; padding: 15px; margin: 10px 0;"&gt;
+    &lt;h4&gt;Section Block Element&lt;/h4&gt;
+    &lt;p&gt;This section contains multiple block elements:
+       &lt;em&gt;emphasis (inline)&lt;/em&gt;, 
+       &lt;code&gt;code (inline)&lt;/code&gt;, and 
+       &lt;a href="#"&gt;links (inline)&lt;/a&gt;.
+    &lt;/p&gt;
+    
+    &lt;ul style="background: #f1f8e9; padding: 10px;"&gt;
+        &lt;li&gt;List is block, but &lt;small&gt;small text is inline&lt;/small&gt;&lt;/li&gt;
+        &lt;li&gt;Items contain &lt;mark&gt;highlighted inline text&lt;/mark&gt;&lt;/li&gt;
+        &lt;li&gt;And &lt;abbr title="abbreviation"&gt;abbr&lt;/abbr&gt; inline elements&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/section&gt;
+
+&lt;!-- Inline Elements Examples --&gt;
+&lt;p style="background: #fff8e1; padding: 10px;"&gt;
+    Inline elements flow with text: 
+    &lt;span&gt;span&lt;/span&gt;, 
+    &lt;strong&gt;strong&lt;/strong&gt;, 
+    &lt;em&gt;emphasis&lt;/em&gt;, 
+    &lt;a href="#"&gt;link&lt;/a&gt;, 
+    &lt;code&gt;code&lt;/code&gt;, 
+    &lt;kbd&gt;keyboard&lt;/kbd&gt;, 
+    &lt;samp&gt;sample&lt;/samp&gt;, 
+    &lt;var&gt;variable&lt;/var&gt;, 
+    &lt;sub&gt;subscript&lt;/sub&gt;, 
+    &lt;sup&gt;superscript&lt;/sup&gt;, 
+    &lt;small&gt;small text&lt;/small&gt;, 
+    &lt;mark&gt;highlighted&lt;/mark&gt;, 
+    &lt;del&gt;deleted&lt;/del&gt;, 
+    &lt;ins&gt;inserted&lt;/ins&gt;, 
+    &lt;q&gt;quoted text&lt;/q&gt;, and 
+    &lt;cite&gt;citations&lt;/cite&gt; all flow inline.
+&lt;/p&gt;
+
+&lt;!-- Mixed Content Example --&gt;
+&lt;article style="background: #f3e5f5; padding: 15px; margin: 10px 0;"&gt;
+    &lt;header style="background: #e1f5fe; padding: 10px; margin-bottom: 10px;"&gt;
+        &lt;h2&gt;Article Header (Block)&lt;/h2&gt;
+        &lt;p&gt;Published on &lt;time datetime="2024-01-15"&gt;January 15, 2024&lt;/time&gt; by 
+           &lt;span class="author"&gt;John Doe&lt;/span&gt;&lt;/p&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;p&gt;This paragraph demonstrates how &lt;strong&gt;inline elements&lt;/strong&gt; 
+           work within &lt;em&gt;block containers&lt;/em&gt;. You can have 
+           &lt;a href="https://example.com"&gt;links&lt;/a&gt;, 
+           &lt;code&gt;code snippets&lt;/code&gt;, and other inline content.
+        &lt;/p&gt;
+        
+        &lt;blockquote style="background: #f9fbe7; padding: 10px; margin: 10px 0;"&gt;
+            "This blockquote is a block element containing 
+            &lt;cite&gt;inline citation&lt;/cite&gt; elements."
+        &lt;/blockquote&gt;
+    &lt;/main&gt;
+&lt;/article&gt;
+
+&lt;!-- Display Property Examples --&gt;
+&lt;div style="background: #fff3e0; padding: 15px; margin: 10px 0;"&gt;
+    &lt;h4&gt;CSS Display Property Changes:&lt;/h4&gt;
+    &lt;span style="display: block; background: #ffcdd2; padding: 5px; margin: 2px 0;"&gt;
+        Span with display: block
+    &lt;/span&gt;
+    &lt;div style="display: inline; background: #c8e6c9; padding: 5px;"&gt;
+        Div with display: inline
+    &lt;/div&gt;
+    &lt;div style="display: inline; background: #c8e6c9; padding: 5px;"&gt;
+        Another inline div
+    &lt;/div&gt;
+&lt;/div&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements" target="_blank" style="color: #ffd700;">MDN Block-level Elements</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements" target="_blank" style="color: #ffd700;">MDN Inline Elements</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display" target="_blank" style="color: #ffd700;">MDN CSS Display Property</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 16: HTML Global Attributes -->
+        <div class="slide">
+            <h2>1.15 HTML Global Attributes</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">id</span> - Unique identifier for element</li>
+                    <li><span class="highlight">class</span> - CSS class name(s) for styling</li>
+                    <li><span class="highlight">style</span> - Inline CSS styling</li>
+                    <li><span class="highlight">title</span> - Advisory information (tooltip)</li>
+                    <li><span class="highlight">lang</span> - Language of element content</li>
+                    <li><span class="highlight">data-*</span> - Custom data attributes</li>
+                    <li><span class="highlight">tabindex</span> - Tab order for keyboard navigation</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Global attributes examples --&gt;
+&lt;div id="main-content" 
+     class="container dark-theme responsive" 
+     data-theme="dark" 
+     data-user-id="12345"
+     data-api-endpoint="/api/users"
+     tabindex="0" 
+     role="main"
+     aria-label="Main content area"
+     aria-describedby="content-description"
+     lang="en"
+     dir="ltr"
+     title="Main application content"
+     style="background-color: #f0f0f0; padding: 20px;"
+     hidden="false"
+     contenteditable="false"
+     draggable="false"
+     spellcheck="true"&gt;
+    
+    &lt;h2 accesskey="h" title="Press Alt+H to focus"&gt;Welcome&lt;/h2&gt;
+    
+    &lt;p id="content-description" 
+       class="description"
+       title="This paragraph describes the main content"
+       translate="yes"&gt;
+        This is the main content area with various global attributes.
+    &lt;/p&gt;
+    
+    &lt;!-- Interactive elements with global attributes --&gt;
+    &lt;button id="action-btn"
+            class="btn btn-primary"
+            data-action="submit"
+            data-confirm="true"
+            tabindex="1"
+            accesskey="s"
+            title="Submit form (Alt+S)"
+            aria-describedby="btn-help"
+            onclick="handleSubmit()"
+            onmouseover="showTooltip()"
+            onfocus="highlightButton()"&gt;
+        Submit
+    &lt;/button&gt;
+    
+    &lt;span id="btn-help" class="sr-only"&gt;
+        This button submits the current form
+    &lt;/span&gt;
+    
+    &lt;!-- Editable content --&gt;
+    &lt;div contenteditable="true"
+         class="editable-area"
+         data-placeholder="Type your message here..."
+         spellcheck="true"
+         autocorrect="on"
+         autocapitalize="sentences"
+         role="textbox"
+         aria-label="Message input area"
+         tabindex="2"&gt;
+        Click to edit this text
+    &lt;/div&gt;
+    
+    &lt;!-- Draggable element --&gt;
+    &lt;div draggable="true"
+         class="draggable-item"
+         data-drag-type="text"
+         ondragstart="handleDragStart(event)"
+         role="button"
+         tabindex="3"
+         aria-label="Draggable item"&gt;
+        📦 Drag me around
+    &lt;/div&gt;
+    
+    &lt;!-- Hidden element (can be toggled) --&gt;
+    &lt;div id="hidden-content"
+         class="hidden-panel"
+         hidden
+         aria-hidden="true"
+         data-toggle-target="true"&gt;
+        This content is initially hidden
+    &lt;/div&gt;
+    
+    &lt;!-- Multi-language content --&gt;
+    &lt;blockquote lang="fr" 
+                dir="ltr"
+                translate="no"
+                class="quote"&gt;
+        "Bonjour le monde!"
+    &lt;/blockquote&gt;
+    
+    &lt;!-- Custom data attributes for JavaScript --&gt;
+    &lt;ul class="item-list" 
+        data-sort="alphabetical"
+        data-filter="active"
+        data-page-size="10"&gt;
+        &lt;li data-item-id="1" data-category="tech" data-priority="high"&gt;Item 1&lt;/li&gt;
+        &lt;li data-item-id="2" data-category="design" data-priority="medium"&gt;Item 2&lt;/li&gt;
+        &lt;li data-item-id="3" data-category="marketing" data-priority="low"&gt;Item 3&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;!-- Microdata example --&gt;
+&lt;div itemscope itemtype="https://schema.org/Person"
+     class="person-card"
+     data-person-id="456"&gt;
+    &lt;h3 itemprop="name"&gt;John Doe&lt;/h3&gt;
+    &lt;p itemprop="jobTitle"&gt;Web Developer&lt;/p&gt;
+    &lt;a itemprop="email" href="mailto:john@example.com"&gt;john@example.com&lt;/a&gt;
+&lt;/div&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes" target="_blank" style="color: #ffd700;">MDN Global Attributes</a> | 
+                <a href="https://html.spec.whatwg.org/multipage/dom.html#global-attributes" target="_blank" style="color: #ffd700;">HTML Living Standard</a> | 
+                <a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html" target="_blank" style="color: #ffd700;">WCAG Info and Relationships</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: HTML Accessibility -->
+        <div class="slide accessibility-slide">
+            <div class="accessibility-icon">♿</div>
+            <h2>HTML and Accessibility</h2>
+            <div class="content">
+                <ul>
+                    <li><span class="highlight">Semantic HTML</span> provides meaning to screen readers</li>
+                    <li><span class="highlight">Alt text</span> for images describes visual content</li>
+                    <li><span class="highlight">Labels</span> associate form controls with descriptions</li>
+                    <li><span class="highlight">Heading hierarchy</span> creates logical document structure</li>
+                    <li><span class="highlight">Focus management</span> enables keyboard navigation</li>
+                    <li><span class="highlight">ARIA attributes</span> enhance accessibility when needed</li>
+                </ul>
+                <div class="code-example">
+&lt;!-- Accessible Images --&gt;
+&lt;img src="chart.png" 
+     alt="Sales chart showing 25% increase from Q1 to Q2, with Q1 at $100K and Q2 at $125K"
+     role="img"
+     aria-describedby="chart-description"&gt;
+&lt;div id="chart-description" class="sr-only"&gt;
+    Detailed chart data: Q1 sales were $100,000, Q2 sales increased to $125,000
+&lt;/div&gt;
+
+&lt;!-- Decorative image (no alt needed) --&gt;
+&lt;img src="decoration.png" alt="" role="presentation"&gt;
+
+&lt;!-- Accessible Forms --&gt;
+&lt;form role="form" aria-labelledby="login-heading"&gt;
+    &lt;h2 id="login-heading"&gt;User Login&lt;/h2&gt;
+    
+    &lt;fieldset&gt;
+        &lt;legend&gt;Account Information&lt;/legend&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="username"&gt;Username: &lt;span aria-label="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;input type="text" 
+                   id="username" 
+                   name="username"
+                   required
+                   aria-required="true"
+                   aria-describedby="username-help username-error"
+                   aria-invalid="false"
+                   autocomplete="username"&gt;
+            &lt;div id="username-help" class="help-text"&gt;
+                Must be at least 8 characters, letters and numbers only
+            &lt;/div&gt;
+            &lt;div id="username-error" class="error-text" aria-live="polite"&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="password"&gt;Password: &lt;span aria-label="required"&gt;*&lt;/span&gt;&lt;/label&gt;
+            &lt;input type="password" 
+                   id="password" 
+                   name="password"
+                   required
+                   aria-required="true"
+                   aria-describedby="password-help"
+                   autocomplete="current-password"&gt;
+            &lt;div id="password-help" class="help-text"&gt;
+                Minimum 12 characters with uppercase, lowercase, number, and symbol
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;input type="checkbox" 
+                   id="remember" 
+                   name="remember"
+                   aria-describedby="remember-help"&gt;
+            &lt;label for="remember"&gt;Remember me on this device&lt;/label&gt;
+            &lt;div id="remember-help" class="help-text"&gt;
+                Keep me logged in for 30 days
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;button type="submit" 
+            aria-describedby="submit-help"&gt;
+        Sign In
+    &lt;/button&gt;
+    &lt;div id="submit-help" class="sr-only"&gt;
+        Press Enter or click to submit the login form
+    &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;!-- Accessible Navigation --&gt;
+&lt;nav role="navigation" aria-label="Main navigation"&gt;
+    &lt;ul role="menubar"&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="/home" 
+               role="menuitem" 
+               aria-current="page"
+               tabindex="0"&gt;Home&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li role="none"&gt;
+            &lt;a href="/about" 
+               role="menuitem" 
+               tabindex="-1"&gt;About&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li role="none"&gt;
+            &lt;button role="menuitem" 
+                    aria-expanded="false" 
+                    aria-haspopup="true"
+                    tabindex="-1"&gt;
+                Services
+            &lt;/button&gt;
+            &lt;ul role="menu" aria-label="Services submenu" hidden&gt;
+                &lt;li role="none"&gt;
+                    &lt;a href="/web-design" role="menuitem"&gt;Web Design&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li role="none"&gt;
+                    &lt;a href="/development" role="menuitem"&gt;Development&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Accessible Tables --&gt;
+&lt;table role="table" aria-labelledby="sales-caption"&gt;
+    &lt;caption id="sales-caption"&gt;
+        Quarterly Sales Report 2024
+    &lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col" id="quarter"&gt;Quarter&lt;/th&gt;
+            &lt;th scope="col" id="revenue"&gt;Revenue&lt;/th&gt;
+            &lt;th scope="col" id="growth"&gt;Growth&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row" headers="quarter"&gt;Q1 2024&lt;/th&gt;
+            &lt;td headers="quarter revenue"&gt;$100,000&lt;/td&gt;
+            &lt;td headers="quarter growth"&gt;+15%&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row" headers="quarter"&gt;Q2 2024&lt;/th&gt;
+            &lt;td headers="quarter revenue"&gt;$125,000&lt;/td&gt;
+            &lt;td headers="quarter growth"&gt;+25%&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- Live Regions for Dynamic Content --&gt;
+&lt;div aria-live="polite" aria-atomic="true" id="status-message"&gt;
+    Status updates will be announced here
+&lt;/div&gt;
+
+&lt;div aria-live="assertive" aria-atomic="false" id="error-alerts"&gt;
+    Critical errors will be announced immediately
+&lt;/div&gt;
+
+&lt;!-- Skip Links --&gt;
+&lt;a href="#main-content" class="skip-link"&gt;
+    Skip to main content
+&lt;/a&gt;
+&lt;a href="#navigation" class="skip-link"&gt;
+    Skip to navigation
+&lt;/a&gt;
+
+&lt;!-- Accessible Modal Dialog --&gt;
+&lt;div role="dialog" 
+     aria-labelledby="modal-title" 
+     aria-describedby="modal-description"
+     aria-modal="true"
+     tabindex="-1"
+     hidden&gt;
+    &lt;h2 id="modal-title"&gt;Confirm Action&lt;/h2&gt;
+    &lt;p id="modal-description"&gt;
+        Are you sure you want to delete this item? This action cannot be undone.
+    &lt;/p&gt;
+    &lt;button type="button" aria-describedby="cancel-help"&gt;Cancel&lt;/button&gt;
+    &lt;button type="button" aria-describedby="delete-help"&gt;Delete&lt;/button&gt;
+    &lt;div id="cancel-help" class="sr-only"&gt;Close dialog without changes&lt;/div&gt;
+    &lt;div id="delete-help" class="sr-only"&gt;Permanently delete the selected item&lt;/div&gt;
+&lt;/div&gt;
+                </div>
+                <p style="margin-top: 1rem; font-size: 1.1rem;">📚 <strong>References:</strong> 
+                <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" style="color: #ffd700;">WCAG 2.1 Quick Reference</a> | 
+                <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA" target="_blank" style="color: #ffd700;">MDN ARIA</a> | 
+                <a href="https://webaim.org/" target="_blank" style="color: #ffd700;">WebAIM Resources</a></p>
+            </div>
+        </div>
+
+        <!-- Slide 18: Summary -->
+        <div class="slide section-slide">
+            <h2>Summary</h2>
+            <div class="content">
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>HTML provides the <span class="highlight">structure and meaning</span> for web content</li>
+                    <li><span class="highlight">Semantic elements</span> improve both accessibility and SEO</li>
+                    <li>Proper use of <span class="highlight">attributes and forms</span> enhances user experience</li>
+                    <li><span class="highlight">HTML5 features</span> enable rich multimedia and interactive content</li>
+                    <li><span class="highlight">Accessibility</span> should be considered from the beginning</li>
+                    <li>Understanding <span class="highlight">block vs inline</span> elements helps with layout</li>
+                    <li><span class="highlight">Global attributes</span> provide universal functionality</li>
+                </ul>
+                <div style="text-align: center; margin-top: 2rem; font-size: 1.5rem;">
+                    🎉 Ready to build accessible, semantic web pages! 🎉
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation nav-left">
+            <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        </div>
+        <div class="navigation nav-right">
+            <button class="nav-btn" onclick="nextSlide()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                showSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                showSlide(totalSlides - 1);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            startX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            endX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (endX < startX - threshold) {
+                nextSlide();
+            } else if (endX > startX + threshold) {
+                previousSlide();
+            }
+        }
+
+        // Function to open code example as rendered HTML
+        function openCodeExample(htmlContent) {
+            // Decode HTML entities
+            const decodedHtml = htmlContent
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&amp;/g, '&')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'");
+            
+            // Create a complete HTML document
+            const fullHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Code Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #007cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #005a87;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+        .skip-link:focus {
+            top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        ${decodedHtml}
+    </div>
+</body>
+</html>`;
+            
+            // Open in new window
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(fullHtml);
+            newWindow.document.close();
+        }
+
+        // Syntax highlighting function
+        function applySyntaxHighlighting(element) {
+            let content = element.innerHTML;
+            
+            // Highlight HTML tags
+            content = content.replace(/(&lt;\/?[^&gt;]+&gt;)/g, function(match) {
+                // Extract tag name and attributes
+                const tagMatch = match.match(/(&lt;\/?)(\w+)([^&gt;]*?)(&gt;)/);
+                if (tagMatch) {
+                    const [, openBracket, tagName, attributes, closeBracket] = tagMatch;
+                    let highlightedTag = `<span class="tag">${openBracket}${tagName}</span>`;
+                    
+                    // Highlight attributes
+                    if (attributes) {
+                        let highlightedAttrs = attributes.replace(/(\w+)(=)(["'][^"']*["'])/g, 
+                            '<span class="attr-name">$1</span>$2<span class="attr-value">$3</span>');
+                        highlightedTag += highlightedAttrs;
+                    }
+                    
+                    highlightedTag += `<span class="tag">${closeBracket}</span>`;
+                    return highlightedTag;
+                }
+                return `<span class="tag">${match}</span>`;
+            });
+            
+            // Highlight DOCTYPE
+            content = content.replace(/(&lt;!DOCTYPE[^&gt;]*&gt;)/g, '<span class="doctype">$1</span>');
+            
+            // Highlight comments
+            content = content.replace(/(&lt;!--[\s\S]*?--&gt;)/g, '<span class="comment">$1</span>');
+            
+            element.innerHTML = content;
+        }
+
+        // Fullscreen functionality
+        function toggleFullscreen(element) {
+            if (element.classList.contains('fullscreen')) {
+                element.classList.remove('fullscreen');
+                const minimizeBtn = element.querySelector('.minimize-btn');
+                if (minimizeBtn) minimizeBtn.remove();
+                document.body.style.overflow = 'auto';
+            } else {
+                element.classList.add('fullscreen');
+                document.body.style.overflow = 'hidden';
+                
+                // Add minimize button
+                const minimizeBtn = document.createElement('button');
+                minimizeBtn.className = 'minimize-btn';
+                minimizeBtn.textContent = '✕ Minimize';
+                minimizeBtn.onclick = function(e) {
+                    e.stopPropagation();
+                    toggleFullscreen(element);
+                };
+                element.appendChild(minimizeBtn);
+            }
+        }
+
+        // Add "View Code Example" and "Fullscreen" buttons to all code examples
+        function addViewExampleButtons() {
+            const codeExamples = document.querySelectorAll('.code-example');
+            
+            codeExamples.forEach((example, index) => {
+                // Skip if buttons already exist
+                if (example.querySelector('.view-example-btn')) return;
+                
+                // Apply syntax highlighting
+                applySyntaxHighlighting(example);
+                
+                // Add Demo Site button
+                const viewButton = document.createElement('button');
+                viewButton.className = 'view-example-btn';
+                viewButton.textContent = '🌐 Demo Site';
+                viewButton.onclick = function(e) {
+                    e.stopPropagation();
+                    const htmlContent = example.textContent || example.innerText;
+                    // Remove button texts from the content
+                    const cleanContent = htmlContent
+                        .replace('🌐 Demo Site', '')
+                        .replace('⛶ Fullscreen', '')
+                        .replace('✕ Minimize', '')
+                        .trim();
+                    openCodeExample(cleanContent);
+                };
+                
+                // Add Fullscreen button
+                const fullscreenButton = document.createElement('button');
+                fullscreenButton.className = 'fullscreen-btn';
+                fullscreenButton.textContent = '⛶ Fullscreen';
+                fullscreenButton.onclick = function(e) {
+                    e.stopPropagation();
+                    toggleFullscreen(example);
+                };
+                
+                example.appendChild(viewButton);
+                example.appendChild(fullscreenButton);
+            });
+        }
+
+        // Initialize
+        showSlide(0);
+        addViewExampleButtons();
+        
+        // Handle escape key to exit fullscreen
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const fullscreenElement = document.querySelector('.code-example.fullscreen');
+                if (fullscreenElement) {
+                    toggleFullscreen(fullscreenElement);
+                }
+            }
+        });
+
+        // Touch gesture support for mobile navigation
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchEndX = 0;
+        let touchEndY = 0;
+        const minSwipeDistance = 50;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const deltaX = touchEndX - touchStartX;
+            const deltaY = touchEndY - touchStartY;
+            const absDeltaX = Math.abs(deltaX);
+            const absDeltaY = Math.abs(deltaY);
+
+            // Only process horizontal swipes that are longer than vertical swipes
+            if (absDeltaX > absDeltaY && absDeltaX > minSwipeDistance) {
+                if (deltaX > 0) {
+                    // Swipe right - previous slide
+                    previousSlide();
+                } else {
+                    // Swipe left - next slide
+                    nextSlide();
+                }
+            }
+        }
+
+        // Add touch-friendly button sizing for mobile
+        function adjustForMobile() {
+            const isMobile = window.innerWidth <= 768;
+            const navButtons = document.querySelectorAll('.nav-btn');
+            
+            if (isMobile) {
+                navButtons.forEach(btn => {
+                    btn.style.minHeight = '44px';
+                    btn.style.minWidth = '44px';
+                });
+            }
+        }
+
+        // Call on load and resize
+        window.addEventListener('load', adjustForMobile);
+        window.addEventListener('resize', adjustForMobile);
+    </script>
+</body>
+</html>
