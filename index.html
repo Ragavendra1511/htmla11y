@@ -579,7 +579,7 @@
 <body>
     <div class="presentation-container">
         <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">18</span>
+            <span id="current-slide">1</span> / <span id="total-slides">33</span>
         </div>
 
         <!-- Slide 1: Title -->
@@ -1921,6 +1921,742 @@
                 </ul>
                 <div style="text-align: center; margin-top: 2rem; font-size: 1.5rem;">
                     🎉 Ready to build accessible, semantic web pages! 🎉
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Semantic Structure and Navigation - Introduction -->
+        <div class="slide section-slide">
+            <h2>2. Semantic Structure and Navigation</h2>
+            <div class="content">
+                <h3>🧭 Building Accessible Web Navigation</h3>
+                <p style="font-size: 1.4rem; margin-bottom: 2rem; text-align: center;">Creating meaningful structure that helps all users navigate your content</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>📄 Page Titles</h4>
+                        <p>The first thing screen readers announce</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>🏗️ Heading Structure</h4>
+                        <p>Logical hierarchy for content organization</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>🔗 Navigation Menus</h4>
+                        <p>Clear pathways through your site</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 10px;">
+                        <h4>🎯 Skip Links</h4>
+                        <p>Quick access to main content</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; font-size: 1.2rem; background: rgba(255,215,0,0.2); padding: 1rem; border-radius: 8px;">
+                    💡 <strong>Remember:</strong> Good semantic structure benefits everyone - screen readers, search engines, and sighted users alike!
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Page Title - Introduction and Importance -->
+        <div class="slide">
+            <h2>2.1 Page Title - The First Impression</h2>
+            <div class="content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <img src="https://i.ibb.co/qMJT0pPG/Picture3.png" alt="Page title accessibility diagram" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;">
+                    <p style="font-size: 1.3rem; font-style: italic;">"The page &lt;title&gt; is the First Thing Screen Reader Users Hear"</p>
+                </div>
+                
+                <h3>Why Page Titles Matter:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><span class="highlight">Accessibility:</span> Screen readers announce the title first</li>
+                    <li><span class="highlight">Navigation:</span> Blind users can't glance at content quickly</li>
+                    <li><span class="highlight">Browser Tabs:</span> Help identify open pages</li>
+                    <li><span class="highlight">Search Results:</span> Used by search engines for SEO</li>
+                    <li><span class="highlight">Bookmarks:</span> Default name when saving pages</li>
+                </ul>
+                
+                <div style="text-align: center; margin: 2rem 0;">
+                    <img src="https://i.ibb.co/0WdZn3X/Picture1.png" alt="Browser showing page title in tab and above content" style="max-width: 100%; height: auto; border-radius: 8px;">
+                    <p style="font-size: 1rem; font-style: italic; margin-top: 0.5rem;">Page titles appear in browser tabs and help users identify content</p>
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1rem; border-radius: 8px; margin-top: 2rem;">
+                    <h4>⚠️ The Problem:</h4>
+                    <p>Web pages without titles waste screen reader users' time, forcing them to navigate through menus and content just to understand what the page is about.</p>
+                </div>
+                
+                <div style="background: rgba(0,255,0,0.2); padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <h4>✅ The Solution:</h4>
+                    <p>Meaningful, descriptive page titles that immediately communicate the page's purpose and content.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Page Title Requirements -->
+        <div class="slide">
+            <h2>2.1 Page Title Requirements</h2>
+            <div class="content">
+                <h3>📋 Essential Requirements (MUST):</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li>The page <span class="highlight">&lt;title&gt; MUST be present</span> and contain text</li>
+                    <li>The page <span class="highlight">&lt;title&gt; MUST be updated</span> when the web address changes</li>
+                    <li>The page <span class="highlight">&lt;title&gt; MUST be accurate and informative</span></li>
+                </ul>
+                
+                <h3>🎯 Best Practices (SHOULD):</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li>The <span class="highlight">&lt;title&gt; SHOULD be concise</span></li>
+                    <li>The <span class="highlight">&lt;title&gt; SHOULD be unique</span> within the website</li>
+                    <li>The <span class="highlight">&lt;title&gt; SHOULD match</span> the top heading in main content</li>
+                    <li><span class="highlight">Unique information SHOULD come first</span> in the title</li>
+                </ul>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <h4>🔄 Dynamic Content:</h4>
+                    <p>If a page is the result of user action or scripted change, the &lt;title&gt; should describe the result or change of context to the user.</p>
+                    <div class="code-example" style="margin-top: 1rem;">
+&lt;title&gt;"Warranty" - Search Results&lt;/title&gt;
+&lt;title&gt;Shopping Cart (3 items) - Your Store&lt;/title&gt;
+&lt;title&gt;Error: Page Not Found - Website Name&lt;/title&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Good Page Title Examples -->
+        <div class="slide">
+            <h2>2.1 Good Page Title Examples</h2>
+            <div class="content">
+                <h3>✅ Excellent Examples:</h3>
+                
+                <div class="code-example">
+&lt;!-- Basic informative title --&gt;
+&lt;title&gt;Products and Services&lt;/title&gt;
+
+&lt;!-- Concise and clear --&gt;
+&lt;title&gt;Accessibility Services&lt;/title&gt;
+
+&lt;!-- Search results with context --&gt;
+&lt;title&gt;"Warranty" - Search Results&lt;/title&gt;
+
+&lt;!-- Unique information first --&gt;
+&lt;title&gt;Mortgage Calculators - Smallville Credit Union&lt;/title&gt;
+
+&lt;!-- E-commerce with item count --&gt;
+&lt;title&gt;Shopping Cart (3 items) - Your Store&lt;/title&gt;
+
+&lt;!-- Blog post --&gt;
+&lt;title&gt;10 Tips for Better Web Accessibility - Tech Blog&lt;/title&gt;
+
+&lt;!-- Contact page --&gt;
+&lt;title&gt;Contact Us - Company Name&lt;/title&gt;
+
+&lt;!-- User profile --&gt;
+&lt;title&gt;John Smith's Profile - Social Network&lt;/title&gt;
+                </div>
+                
+                <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <h4>🎯 What Makes These Good:</h4>
+                    <ul>
+                        <li><strong>Descriptive:</strong> Clearly explain the page content</li>
+                        <li><strong>Unique:</strong> Each page has distinct information</li>
+                        <li><strong>Concise:</strong> Short enough to read quickly</li>
+                        <li><strong>Logical Order:</strong> Most important info comes first</li>
+                        <li><strong>Context-Aware:</strong> Include relevant state information</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Bad Page Title Examples -->
+        <div class="slide">
+            <h2>2.1 Bad Page Title Examples</h2>
+            <div class="content">
+                <h3>❌ Examples to Avoid:</h3>
+                
+                <div class="code-example">
+&lt;!-- Empty title --&gt;
+&lt;title&gt;&lt;/title&gt;
+
+&lt;!-- Missing title entirely --&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+&lt;/head&gt;
+
+&lt;!-- Default placeholder --&gt;
+&lt;title&gt;Untitled Document&lt;/title&gt;
+
+&lt;!-- Uninformative --&gt;
+&lt;title&gt;Document Content&lt;/title&gt;
+&lt;title&gt;Welcome&lt;/title&gt;
+&lt;title&gt;Home&lt;/title&gt;
+
+&lt;!-- Generic search results --&gt;
+&lt;title&gt;Search Results&lt;/title&gt;
+
+&lt;!-- Brand first (harder to distinguish in tabs) --&gt;
+&lt;title&gt;Smallville Credit Union - Mortgage Calculators&lt;/title&gt;
+&lt;title&gt;Smallville Credit Union - About Us&lt;/title&gt;
+&lt;title&gt;Smallville Credit Union - Contact&lt;/title&gt;
+
+&lt;!-- Keyword stuffing --&gt;
+&lt;title&gt;Mortgages Inc. - Mortgage services, best mortgages in New York, 
+low rates, low API, easy financing, variable rates, fixed rate mortgages&lt;/title&gt;
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-top: 2rem;">
+                    <h4>🚫 Why These Are Problematic:</h4>
+                    <ul>
+                        <li><strong>Empty/Missing:</strong> Screen readers have nothing to announce</li>
+                        <li><strong>Generic:</strong> Don't help users identify the page</li>
+                        <li><strong>Brand First:</strong> Hard to distinguish in browser tabs</li>
+                        <li><strong>Too Long:</strong> Impatient users, truncated in tabs</li>
+                        <li><strong>Keyword Stuffing:</strong> Poor user experience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Page Title Best Practices -->
+        <div class="slide">
+            <h2>2.1 Page Title Best Practices</h2>
+            <div class="content">
+                <h3>🏆 Pro Tips for Better Titles:</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h4>📏 Length Guidelines</h4>
+                        <ul>
+                            <li>Keep under 60 characters</li>
+                            <li>Avoid truncation in search results</li>
+                            <li>Consider mobile tab width</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h4>🎯 Information Hierarchy</h4>
+                        <ul>
+                            <li>Most specific info first</li>
+                            <li>Brand/site name last</li>
+                            <li>Use separators like " - " or " | "</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>❌ Problem: Brand-First Titles</h4>
+                    <p>When brand names come first, users can't distinguish between pages in tabs:</p>
+                    <div style="text-align: center; margin: 1rem 0;">
+                        <img src="https://i.ibb.co/ympjchZ3/Picture2.png" alt="Browser tabs showing identical brand names, making pages indistinguishable" style="max-width: 100%; height: auto; border-radius: 8px;">
+                        <p style="font-size: 0.9rem; font-style: italic; margin-top: 0.5rem;">All tabs look the same when brand comes first - users can't tell pages apart!</p>
+                    </div>
+                </div>
+                
+                <h4>🔄 Dynamic Title Updates:</h4>
+                <div class="code-example">
+// JavaScript example for single-page applications
+function updatePageTitle(newTitle) {
+    document.title = newTitle;
+    // Also update any breadcrumbs or page headings
+}
+
+// Examples of dynamic updates
+updatePageTitle("Profile Settings - User Dashboard");
+updatePageTitle("Order #12345 - Order History");
+updatePageTitle("Error: Invalid Login - Please Try Again");
+                </div>
+                
+                <div style="background: rgba(255,215,0,0.2); padding: 1rem; border-radius: 8px; margin-top: 2rem;">
+                    <h4>💡 Remember:</h4>
+                    <p>The title should match or be very similar to the main heading (&lt;h1&gt;) on the page. This redundancy is helpful - users see the title in tabs/bookmarks and the heading in content.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 25: Page Title Resources -->
+        <div class="slide">
+            <h2>2.1 Page Title - Additional Resources</h2>
+            <div class="content">
+                <h3>📚 Official Guidelines & Standards:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/page-titled.html" target="_blank" style="color: #ffd700;">WCAG 2.1 - Page Titled (Success Criterion 2.4.2)</a></li>
+                    <li><a href="https://html.spec.whatwg.org/multipage/semantics.html#the-title-element" target="_blank" style="color: #ffd700;">HTML Living Standard - Title Element</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title" target="_blank" style="color: #ffd700;">MDN - HTML Title Element</a></li>
+                </ul>
+                
+                <h3>🛠️ Tools & Testing:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://webaim.org/techniques/semanticstructure/" target="_blank" style="color: #ffd700;">WebAIM - Semantic Structure</a></li>
+                    <li><a href="https://wave.webaim.org/" target="_blank" style="color: #ffd700;">WAVE Web Accessibility Evaluator</a></li>
+                    <li><a href="https://www.deque.com/axe/" target="_blank" style="color: #ffd700;">axe DevTools for Accessibility Testing</a></li>
+                </ul>
+                
+                <h3>📖 Additional Reading:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://webaim.org/articles/screenreader_testing/" target="_blank" style="color: #ffd700;">Testing with Screen Readers</a></li>
+                    <li><a href="https://www.w3.org/WAI/perspective-videos/" target="_blank" style="color: #ffd700;">Web Accessibility Perspective Videos</a></li>
+                </ul>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; margin-top: 2rem; text-align: center;">
+                    <h4>🎯 Next Up: Language Identification</h4>
+                    <p style="font-size: 1.1rem;">Learn how to properly declare languages in HTML for better accessibility and international support.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 26: Language - Introduction -->
+        <div class="slide">
+            <h2>3. Language Identification</h2>
+            <div class="content">
+                <h3>🌍 Why Language Matters in HTML</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h4>🎯 Accessibility Benefits</h4>
+                        <ul>
+                            <li>Screen readers use correct pronunciation</li>
+                            <li>Proper voice and speech synthesis</li>
+                            <li>Better navigation for assistive technology</li>
+                            <li>Improved user experience for multilingual users</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h4>🔧 Technical Benefits</h4>
+                        <ul>
+                            <li>Search engines understand content language</li>
+                            <li>Browsers apply correct fonts and typography</li>
+                            <li>Translation tools work more accurately</li>
+                            <li>Spell checkers use appropriate dictionaries</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,215,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>📋 WCAG Requirements:</h4>
+                    <p><strong>Success Criterion 3.1.1 (Level A):</strong> The default human language of each Web page can be programmatically determined.</p>
+                    <p><strong>Success Criterion 3.1.2 (Level AA):</strong> The human language of each passage or phrase in the content can be programmatically determined.</p>
+                </div>
+                
+                <h4>🎯 What We'll Cover:</h4>
+                <ul style="font-size: 1.2rem;">
+                    <li>Primary language declaration on &lt;html&gt; element</li>
+                    <li>Language codes and standards (ISO 639-1, BCP 47)</li>
+                    <li>Inline language changes with lang attribute</li>
+                    <li>Common mistakes and best practices</li>
+                    <li>Testing and validation techniques</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 27: Primary Language Requirements -->
+        <div class="slide">
+            <h2>3.1 Primary Language Declaration</h2>
+            <div class="content">
+                <h3>🏠 Setting the Document's Main Language</h3>
+                
+                <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>✅ Required: lang attribute on &lt;html&gt; element</h4>
+                    <div class="code-example">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Welcome to Our Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This content is in English.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+                
+                <h4>🌐 Common Language Codes:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>en</strong><br>English
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>es</strong><br>Spanish
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>fr</strong><br>French
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>de</strong><br>German
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>zh</strong><br>Chinese
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center;">
+                        <strong>ja</strong><br>Japanese
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                    <h4>❌ What Happens Without lang?</h4>
+                    <ul>
+                        <li>Screen readers may use wrong pronunciation</li>
+                        <li>Search engines can't determine content language</li>
+                        <li>Browser translation tools may not work properly</li>
+                        <li>Fails WCAG 3.1.1 (Level A) compliance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 28: Good Language Examples -->
+        <div class="slide">
+            <h2>3.1 Language Identification - Good Examples</h2>
+            <div class="content">
+                <h3>✅ Proper Language Declaration Examples</h3>
+                
+                <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🌍 Basic Language Codes:</h4>
+                    <div class="code-example">
+&lt;!-- English website --&gt;
+&lt;html lang="en"&gt;
+
+&lt;!-- Spanish website --&gt;
+&lt;html lang="es"&gt;
+
+&lt;!-- French website --&gt;
+&lt;html lang="fr"&gt;
+
+&lt;!-- German website --&gt;
+&lt;html lang="de"&gt;
+                    </div>
+                </div>
+                
+                <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🎯 Regional Variants (BCP 47):</h4>
+                    <div class="code-example">
+&lt;!-- US English --&gt;
+&lt;html lang="en-US"&gt;
+
+&lt;!-- British English --&gt;
+&lt;html lang="en-GB"&gt;
+
+&lt;!-- Mexican Spanish --&gt;
+&lt;html lang="es-MX"&gt;
+
+&lt;!-- Canadian French --&gt;
+&lt;html lang="fr-CA"&gt;
+
+&lt;!-- Simplified Chinese --&gt;
+&lt;html lang="zh-Hans"&gt;
+
+&lt;!-- Traditional Chinese --&gt;
+&lt;html lang="zh-Hant"&gt;
+                    </div>
+                </div>
+                
+                <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                    <h4>🔄 Inline Language Changes:</h4>
+                    <div class="code-example">
+&lt;!-- English page with some Spanish content --&gt;
+&lt;html lang="en"&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to Our Restaurant&lt;/h1&gt;
+    &lt;p&gt;Today's special is &lt;span lang="es"&gt;paella valenciana&lt;/span&gt;.&lt;/p&gt;
+    &lt;p&gt;We also serve &lt;span lang="fr"&gt;coq au vin&lt;/span&gt; on weekends.&lt;/p&gt;
+    
+    &lt;blockquote lang="es"&gt;
+        &lt;p&gt;La vida es como una caja de bombones.&lt;/p&gt;
+        &lt;cite&gt;Forrest Gump (Spanish version)&lt;/cite&gt;
+    &lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 29: Bad Language Examples -->
+        <div class="slide">
+            <h2>3.1 Language Identification - Bad Examples</h2>
+            <div class="content">
+                <h3>❌ Common Language Declaration Mistakes</h3>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🚫 Missing Language Declaration:</h4>
+                    <div class="code-example">
+&lt;!-- BAD: No lang attribute --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Welcome&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🚫 Wrong or Invalid Language Codes:</h4>
+                    <div class="code-example">
+&lt;!-- BAD: Invalid language codes --&gt;
+&lt;html lang="english"&gt;  &lt;!-- Should be "en" --&gt;
+&lt;html lang="EN"&gt;      &lt;!-- Should be lowercase "en" --&gt;
+&lt;html lang="us"&gt;      &lt;!-- Should be "en-US" --&gt;
+&lt;html lang="uk"&gt;      &lt;!-- "uk" is Ukraine, use "en-GB" for British English --&gt;
+&lt;html lang="chinese"&gt; &lt;!-- Should be "zh", "zh-Hans", or "zh-Hant" --&gt;
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🚫 Inconsistent Language Usage:</h4>
+                    <div class="code-example">
+&lt;!-- BAD: Page declared as English but content is Spanish --&gt;
+&lt;html lang="en"&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bienvenidos a Nuestro Sitio Web&lt;/h1&gt;
+    &lt;p&gt;Ofrecemos los mejores servicios en español.&lt;/p&gt;
+    &lt;!-- This should be lang="es" --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                    <h4>🚫 Missing Inline Language Changes:</h4>
+                    <div class="code-example">
+&lt;!-- BAD: Foreign phrases without lang attribute --&gt;
+&lt;html lang="en"&gt;
+&lt;body&gt;
+    &lt;p&gt;The restaurant's specialty is paella valenciana.&lt;/p&gt;
+    &lt;!-- Should be: &lt;span lang="es"&gt;paella valenciana&lt;/span&gt; --&gt;
+    
+    &lt;p&gt;As they say in France, c'est la vie.&lt;/p&gt;
+    &lt;!-- Should be: &lt;span lang="fr"&gt;c'est la vie&lt;/span&gt; --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 30: Inline Language Changes -->
+        <div class="slide">
+            <h2>3.2 Inline Language Changes</h2>
+            <div class="content">
+                <h3>🔄 When and How to Use lang on Individual Elements</h3>
+                
+                <div style="background: rgba(255,215,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>📋 WCAG 3.1.2 (Level AA):</h4>
+                    <p>The human language of each passage or phrase in the content can be programmatically determined except for proper names, technical terms, words of indeterminate language, and words that have become part of the vernacular.</p>
+                </div>
+                
+                <h4>🎯 When to Use Inline lang:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                        <h5>✅ DO use lang for:</h5>
+                        <ul>
+                            <li>Foreign phrases and expressions</li>
+                            <li>Quotes in different languages</li>
+                            <li>Product names in original language</li>
+                            <li>Addresses in foreign countries</li>
+                            <li>Song titles, book titles</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                        <h5>❌ DON'T use lang for:</h5>
+                        <ul>
+                            <li>Proper names (John, Paris, Microsoft)</li>
+                            <li>Technical terms (HTML, CSS, API)</li>
+                            <li>Words adopted into the language (café, sushi)</li>
+                            <li>Single words that are ambiguous</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h4>💡 Practical Examples:</h4>
+                <div class="code-example">
+&lt;!-- Foreign phrases --&gt;
+&lt;p&gt;The concept of &lt;span lang="de"&gt;Schadenfreude&lt;/span&gt; is difficult to translate.&lt;/p&gt;
+
+&lt;!-- Quotes in different languages --&gt;
+&lt;blockquote lang="fr"&gt;
+    &lt;p&gt;La vie est belle.&lt;/p&gt;
+    &lt;cite&gt;French saying&lt;/cite&gt;
+&lt;/blockquote&gt;
+
+&lt;!-- Mixed language content --&gt;
+&lt;p&gt;Our offices: &lt;span lang="en"&gt;New York&lt;/span&gt;, 
+   &lt;span lang="es"&gt;Ciudad de México&lt;/span&gt;, 
+   &lt;span lang="ja"&gt;東京&lt;/span&gt;&lt;/p&gt;
+
+&lt;!-- Product names (when pronunciation matters) --&gt;
+&lt;p&gt;Try our signature &lt;span lang="it"&gt;risotto alla milanese&lt;/span&gt;.&lt;/p&gt;
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 31: Language Code Standards -->
+        <div class="slide">
+            <h2>3.3 Language Code Standards and Best Practices</h2>
+            <div class="content">
+                <h3>📚 Understanding Language Tags (BCP 47)</h3>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🏗️ Language Tag Structure:</h4>
+                    <div class="code-example">
+[language]-[script]-[region]-[variant]-[extension]
+
+Examples:
+en           (English)
+en-US        (US English)
+en-GB        (British English)
+zh-Hans      (Simplified Chinese)
+zh-Hant-HK   (Traditional Chinese, Hong Kong)
+sr-Latn      (Serbian in Latin script)
+                    </div>
+                </div>
+                
+                <h4>🌍 Common Language Patterns:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h5>🇺🇸 English Variants:</h5>
+                        <ul>
+                            <li><code>en</code> - Generic English</li>
+                            <li><code>en-US</code> - US English</li>
+                            <li><code>en-GB</code> - British English</li>
+                            <li><code>en-CA</code> - Canadian English</li>
+                            <li><code>en-AU</code> - Australian English</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px;">
+                        <h5>🇪🇸 Spanish Variants:</h5>
+                        <ul>
+                            <li><code>es</code> - Generic Spanish</li>
+                            <li><code>es-ES</code> - Spain Spanish</li>
+                            <li><code>es-MX</code> - Mexican Spanish</li>
+                            <li><code>es-AR</code> - Argentinian Spanish</li>
+                            <li><code>es-US</code> - US Spanish</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,215,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>💡 Best Practices:</h4>
+                    <ul>
+                        <li><strong>Start simple:</strong> Use basic language codes (en, es, fr) unless regional differences matter</li>
+                        <li><strong>Be consistent:</strong> Use the same format throughout your site</li>
+                        <li><strong>Consider your audience:</strong> Use regional variants when targeting specific regions</li>
+                        <li><strong>Validate codes:</strong> Use official language tag validators</li>
+                    </ul>
+                </div>
+                
+                <h4>🔍 Validation Tools:</h4>
+                <ul style="font-size: 1.1rem;">
+                    <li><a href="https://r12a.github.io/app-subtags/" target="_blank" style="color: #ffd700;">Language Subtag Lookup Tool</a></li>
+                    <li><a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank" style="color: #ffd700;">IANA Language Subtag Registry</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 32: Language Accessibility Impact -->
+        <div class="slide">
+            <h2>3.4 Language and Accessibility Impact</h2>
+            <div class="content">
+                <h3>🎧 How Language Affects Screen Readers and Assistive Technology</h3>
+                
+                <div style="background: rgba(255,215,0,0.2); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h4>🔊 Screen Reader Behavior:</h4>
+                    <p>Screen readers use the lang attribute to:</p>
+                    <ul>
+                        <li>Select appropriate voice and pronunciation rules</li>
+                        <li>Apply correct phonetic algorithms</li>
+                        <li>Choose proper speech synthesis settings</li>
+                        <li>Announce language changes to users</li>
+                    </ul>
+                </div>
+                
+                <h4>🎯 Real-World Impact Examples:</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div style="background: rgba(255,0,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                        <h5>❌ Without lang attribute:</h5>
+                        <div class="code-example">
+&lt;p&gt;Bonjour, comment allez-vous?&lt;/p&gt;
+&lt;!-- Screen reader uses English pronunciation:
+     "Bon-joor, com-ment al-lez voos?" --&gt;
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(0,255,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                        <h5>✅ With lang attribute:</h5>
+                        <div class="code-example">
+&lt;p lang="fr"&gt;Bonjour, comment allez-vous?&lt;/p&gt;
+&lt;!-- Screen reader uses French pronunciation:
+     "Bon-ZHOOR, kom-mahn tah-lay VOO?" --&gt;
+                        </div>
+                    </div>
+                </div>
+                
+                <h4>🧪 Testing with Screen Readers:</h4>
+                <div style="background: rgba(255,255,255,0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem;">
+                    <h5>🛠️ Popular Screen Readers:</h5>
+                    <ul>
+                        <li><strong>NVDA (Windows):</strong> Free, supports multiple languages</li>
+                        <li><strong>JAWS (Windows):</strong> Commercial, extensive language support</li>
+                        <li><strong>VoiceOver (macOS/iOS):</strong> Built-in, good multilingual support</li>
+                        <li><strong>TalkBack (Android):</strong> Built-in, supports many languages</li>
+                    </ul>
+                </div>
+                
+                <div style="background: rgba(255,215,0,0.2); padding: 1.5rem; border-radius: 8px;">
+                    <h4>🎯 User Experience Benefits:</h4>
+                    <ul>
+                        <li><strong>Comprehension:</strong> Correct pronunciation improves understanding</li>
+                        <li><strong>Navigation:</strong> Users can skip content in unfamiliar languages</li>
+                        <li><strong>Efficiency:</strong> Faster content consumption with proper language detection</li>
+                        <li><strong>Inclusion:</strong> Better experience for multilingual users</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 33: Language Resources -->
+        <div class="slide">
+            <h2>3.4 Language - Additional Resources</h2>
+            <div class="content">
+                <h3>📚 Official Guidelines & Standards:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/language-of-page.html" target="_blank" style="color: #ffd700;">WCAG 2.1 - Language of Page (3.1.1)</a></li>
+                    <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/language-of-parts.html" target="_blank" style="color: #ffd700;">WCAG 2.1 - Language of Parts (3.1.2)</a></li>
+                    <li><a href="https://html.spec.whatwg.org/multipage/dom.html#the-lang-and-xml:lang-attributes" target="_blank" style="color: #ffd700;">HTML Living Standard - lang attribute</a></li>
+                    <li><a href="https://tools.ietf.org/html/bcp47" target="_blank" style="color: #ffd700;">BCP 47 - Tags for Identifying Languages</a></li>
+                </ul>
+                
+                <h3>🛠️ Tools & Validation:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://r12a.github.io/app-subtags/" target="_blank" style="color: #ffd700;">Language Subtag Lookup Tool</a></li>
+                    <li><a href="https://wave.webaim.org/" target="_blank" style="color: #ffd700;">WAVE Web Accessibility Evaluator</a></li>
+                    <li><a href="https://www.deque.com/axe/" target="_blank" style="color: #ffd700;">axe DevTools for Accessibility Testing</a></li>
+                    <li><a href="https://validator.w3.org/" target="_blank" style="color: #ffd700;">W3C Markup Validator</a></li>
+                </ul>
+                
+                <h3>📖 Additional Reading:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://webaim.org/techniques/language/" target="_blank" style="color: #ffd700;">WebAIM - Language Techniques</a></li>
+                    <li><a href="https://www.w3.org/International/questions/qa-lang-why" target="_blank" style="color: #ffd700;">W3C - Why use the language attribute?</a></li>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang" target="_blank" style="color: #ffd700;">MDN - lang Global Attribute</a></li>
+                </ul>
+                
+                <h3>🎧 Screen Reader Testing:</h3>
+                <ul style="font-size: 1.2rem;">
+                    <li><a href="https://webaim.org/articles/screenreader_testing/" target="_blank" style="color: #ffd700;">WebAIM - Testing with Screen Readers</a></li>
+                    <li><a href="https://www.nvaccess.org/download/" target="_blank" style="color: #ffd700;">NVDA Screen Reader (Free)</a></li>
+                </ul>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 8px; margin-top: 2rem; text-align: center;">
+                    <h4>🎯 Next Up: Form Labels and Structure</h4>
+                    <p style="font-size: 1.1rem;">Learn how to create accessible forms with proper labeling, fieldsets, and error handling for better user experience.</p>
                 </div>
             </div>
         </div>
